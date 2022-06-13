@@ -38,7 +38,7 @@ public class ManagerAccount {
         }
     }
     public boolean login(){
-        System.out.println("Nhập userName:");
+        System.out.println("Nhập userName: ");
         String user = sc.nextLine();
         System.out.println("Nhập passWord:");
         String pass = sc.nextLine();
@@ -55,13 +55,13 @@ public class ManagerAccount {
     public void register(){
         System.out.println("Tạo tài khoản:");
 
-        System.out.println("Nhập họ và tên:");
+        System.out.println("Nhập họ và tên: - Viết hoa chữ cái đầu");
         String name = ValidateAccUser.name();
         System.out.println("Nhập tuổi:");
         String age = ValidateAccUser.age();
         System.out.println("Chọn giới tính");
         String gender = ValidateAccUser.gender();
-        System.out.println("Nhập số điện thoại");
+        System.out.println("Nhập số điện thoại - nhập 10 số bắt đầu bằng số 0");
         String phone = ValidateAccUser.phone();
         System.out.println("Nhập địa chỉ:");
         String address = ValidateAccUser.address();
@@ -72,6 +72,8 @@ public class ManagerAccount {
         String user = null;
         while (true){
             System.out.println("Nhập userName:");
+            System.out.println("Viết hoa chữ cái đầu và có số");
+
             user = ValidateAccUser.username();
             if (checkUserName(user)){
                 break;

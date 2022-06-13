@@ -14,7 +14,7 @@ public class ValidateAccUser {
     public static final String regexname = "[A-Z][a-z]+";
     public static final String regexage = "[0-9]{1,2}";
     public static final String regexaddress = "[A-Za-z0-9]+";
-    public static final String regexphone = "0[1-9]{9}";
+    public static final String regexphone = "0[0-9]{9}";
     public static final String regexemail = "[A-Za-z0-9]+@+[a-z]+.[a-z]+";
     public static final String regexuserName = "[A-Z][a-z]{1,9}[0-9]{1,9}+";
     public static final String regexpassWord = "[A-Za-z0-9]{6,12}+";

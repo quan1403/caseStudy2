@@ -115,11 +115,11 @@ public class Manager {
             System.out.println("Nhập id danh mục:");
             idCategory = Validate.id();
             System.out.println("Nhập tên danh mục:");
-            nameCategory = Validate.nameProduct();
+            nameCategory = sc.nextLine();
             System.out.println("Nhập id sản phẩm:");
             idProduct = Validate.id();
             System.out.println("Nhập tên của sản phẩm:");
-            nameProduct = Validate.nameProduct();
+            nameProduct = sc.nextLine();
             System.out.println("Nhập giá của sản phẩm:");
             price = Double.parseDouble(sc.nextLine());
             System.out.println("Nhập số lượng tồn:");

@@ -29,9 +29,9 @@ public class WriteAndReader2 {
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             return  (ArrayList<Product>) objectInputStream.readObject();
         } catch (FileNotFoundException e) {
-            System.err.println("file k tồn tại");
+            System.err.println("");
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("file chưa tồn tại");;
+            System.out.println("");;
         }
         return new ArrayList<>();
     }

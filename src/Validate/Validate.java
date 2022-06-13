@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 public class Validate {
     static WriteAndReader2 writeAndReader2 = new WriteAndReader2();
     public static final String regexid = "[1-9]+";
-    public static final String regexNameProduct = "[A-Z][a-z]{1,9}[0-9]{1,9}+";
+    public static final String regexNameProduct = "[A-Z][a-z]{1,15}+";
     static Scanner sc = new Scanner(System.in);
 
     public static String id() {
@@ -29,21 +29,21 @@ public class Validate {
             System.out.println("Nhập sai rồi");
         }
     }
-    public static String nameProduct() {
-        while (true) {
-            String name = sc.nextLine();
-            Pattern pattern = Pattern.compile(regexNameProduct);
-            Matcher matcher = pattern.matcher(name);
-            if (matcher.matches()) {
-                for (int i = 1; i < writeAndReader2.reader().size(); i++) {
-                    if (writeAndReader2.reader().get(i).getIdProduct().equals(name)) {
-                        System.out.println("tên sản phẩm đã tồn tại");
-                        nameProduct();
-                    }
-                }
-                return nameProduct();
-            }
-            System.out.println("Nhập sai rồi");
-        }
-    }
+//    public static String nameProduct() {
+//        while (true) {
+//            String name = sc.nextLine();
+//            Pattern pattern = Pattern.compile(regexNameProduct);
+//            Matcher matcher = pattern.matcher(name);
+//            if (matcher.matches()) {
+//                for (int i = 1; i < writeAndReader2.reader().size(); i++) {
+//                    if (writeAndReader2.reader().get(i).getIdProduct().equals(name)) {
+//                        System.out.println("tên sản phẩm đã tồn tại");
+//                        nameProduct();
+//                    }
+//                }
+//                return nameProduct();
+//            }
+//            System.out.println("Nhập sai rồi");
+//        }
+//    }
 }

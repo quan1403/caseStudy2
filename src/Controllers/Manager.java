@@ -5,6 +5,7 @@ import Models.ClassShop;
 import Models.Product;
 import Models.SortGiamDan;
 import Models.SortTangDan;
+import Validate.Validate;
 import io.WriteAndReader2;
 import io.WriteAndReaderAdmin;
 import io.WriteAndReaderShop;
@@ -103,22 +104,22 @@ public class Manager {
     }
 
     public Product nhapDuLieuSanPham() {
-        int idCategory;
+       String idCategory;
         String nameCategory;
-        int idProduct;
+       String idProduct;
         String nameProduct;
         double price;
         int amount;
         String describe;
         try {
             System.out.println("Nhập id danh mục:");
-            idCategory = Integer.parseInt(sc.nextLine());
+            idCategory = Validate.id();
             System.out.println("Nhập tên danh mục:");
-            nameCategory = sc.nextLine();
+            nameCategory = Validate.nameProduct();
             System.out.println("Nhập id sản phẩm:");
-            idProduct = Integer.parseInt(sc.nextLine());
+            idProduct = Validate.id();
             System.out.println("Nhập tên của sản phẩm:");
-            nameProduct = sc.nextLine();
+            nameProduct = Validate.nameProduct();
             System.out.println("Nhập giá của sản phẩm:");
             price = Double.parseDouble(sc.nextLine());
             System.out.println("Nhập số lượng tồn:");
@@ -254,9 +255,9 @@ public class Manager {
 
     public int Check() {
         System.out.println("Nhập id muốn sửa:");
-        int id = Integer.parseInt(sc.nextLine());
+       String id = sc.nextLine();
         for (int i = 0; i < productList.size(); i++) {
-            if (productList.get(i).getIdProduct() == id) {
+            if (productList.get(i).getIdProduct().equals(id)) {
                 return i;
 
             }
@@ -395,6 +396,7 @@ public class Manager {
                 classShops = classShops1;
                 System.out.println("Cam on quy khach ");
                 writeAndReaderShop.write(classShops);
+                break;
             case 2:
                 boolean check = true;
                 System.out.println("Nhập tên sản phẩm muốn xóa :");
@@ -403,7 +405,11 @@ public class Manager {
                     if (classShops.get(i).getUser().equals(ManagerAccount.accountUser.getUserName())){
                         for (int j = 0; j <classShops.get(i).getProducts().size(); j++) {
                             if (classShops.get(i).getProducts().get(j).getNameProduct().equals(name)){
+                                double prices =  classShops.get(i).getProducts().get(j).getPrice();
+                                double pricess = (sum - prices);
+                                classShops.get(i).setPrices(pricess);
                                 classShops.get(i).getProducts().remove(j);
+
                                 System.out.println("Đã xóa thành công ");
                                 writeAndReaderShop.write(classShops);
                                 check = false;

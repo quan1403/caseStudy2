@@ -124,7 +124,6 @@ public class ValidateAccUser {
             Pattern pattern = Pattern.compile(regexpassWord);
             Matcher matcher = pattern.matcher(passWord);
             if (matcher.matches()){
-                System.out.println("5555");
                 return passWord;
 
             }

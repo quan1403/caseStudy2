@@ -3,10 +3,10 @@ package Models;
 import java.io.Serializable;
 
 public class Product implements Serializable {
-    private int idCaterory;
+    private String idCaterory;
     private String nameCaterory;
 
-    private int idProduct;
+    private String idProduct;
     private String nameProduct;
     private double price;
     private int amount;
@@ -16,7 +16,7 @@ public class Product implements Serializable {
     public Product(String nameProduct, double price, int amount) {
     }
 
-    public Product(int idCaterory, String nameCaterory, int idProduct, String nameProduct, double price, int amount,  String describe) {
+    public Product(String idCaterory, String nameCaterory, String idProduct, String nameProduct, double price, int amount,  String describe) {
         this.idCaterory = idCaterory;
         this.nameCaterory = nameCaterory;
         this.idProduct = idProduct;
@@ -27,11 +27,11 @@ public class Product implements Serializable {
         this.describe = describe;
     }
 
-    public int getIdCaterory() {
+    public String getIdCaterory() {
         return idCaterory;
     }
 
-    public void setIdCaterory(int idCaterory) {
+    public void setIdCaterory(String idCaterory) {
         this.idCaterory = idCaterory;
     }
 
@@ -43,11 +43,11 @@ public class Product implements Serializable {
         this.nameCaterory = nameCaterory;
     }
 
-    public int getIdProduct() {
+    public String getIdProduct() {
         return idProduct;
     }
 
-    public void setIdProduct(int idProduct) {
+    public void setIdProduct(String idProduct) {
         this.idProduct = idProduct;
     }
 

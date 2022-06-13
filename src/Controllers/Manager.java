@@ -5,7 +5,8 @@ import Models.ClassShop;
 import Models.Product;
 import Models.SortGiamDan;
 import Models.SortTangDan;
-import Validate.Validate;
+//import Validate.Validate;
+
 import io.WriteAndReader2;
 import io.WriteAndReaderAdmin;
 import io.WriteAndReaderShop;
@@ -103,21 +104,21 @@ public class Manager {
         }
     }
 
-    public Product nhapDuLieuSanPham() {
-       String idCategory;
+    public  Product nhapDuLieuSanPham() {
+       int idCategory;
         String nameCategory;
-       String idProduct;
+       int idProduct;
         String nameProduct;
         double price;
         int amount;
         String describe;
         try {
             System.out.println("Nhập id danh mục:");
-            idCategory = Validate.id();
+            idCategory = Integer.parseInt(sc.nextLine());
             System.out.println("Nhập tên danh mục:");
             nameCategory = sc.nextLine();
             System.out.println("Nhập id sản phẩm:");
-            idProduct = Validate.id();
+            idProduct = Integer.parseInt(sc.nextLine());
             System.out.println("Nhập tên của sản phẩm:");
             nameProduct = sc.nextLine();
             System.out.println("Nhập giá của sản phẩm:");
@@ -164,41 +165,66 @@ public class Manager {
     }
 
     public void showDanhMuc() {
+        productList=writeAndReader2.reader();
         for (Product c : productList) {
             System.out.println("id danh mục:" + c.getIdCaterory() + ";" + "tên danh mục:" + c.getNameCaterory());
 
         }
     }
+    public int checkid(String name){
 
-    public void deletedDanhMuc() {
-        System.out.println("Nhập tên danh mục muốn xóa:");
-        String name = sc.nextLine();
-        for (int i = 0; i < productList.size(); i++) {
-            if (productList.get(i).getNameCaterory().equals(name)){
-                System.out.println("Nhập y để xóa");
-                System.out.println("Nhập n để thoát");
-                String a = sc.nextLine();
-                if (a.equals("y")){
-                    productList.remove(i);
-                    System.out.println("xóa thành công");
-                    break;
-                }
-                else {
-                    if (a.equals("n")){
-                        menuDanhMuc();
-                        break;
-                    }
-                }
-            }
-            else {
-                System.out.println(" tên không tồn tại");
+        for (int i=0; i< productList.size(); i++){
+            if (productList.get(i).getNameProduct().equals(name)){
+                return i;
             }
         }
-
-            writeAndReader2.write(productList);
-
-
+        return -1;
     }
+
+    public   void Edit(){
+        System.out.println("Nhập tên sản phẩm ");
+        String name = sc.nextLine();
+        if (checkid(name)!=-1) {
+           productList.set(checkid(name),nhapDuLieuSanPham());
+            writeAndReader2.write(productList);
+        }else {
+            System.out.println("  Không tìm thấy tên sản phẩm");
+        }
+        menuAdmin();
+    }
+
+    public void deletedDanhMuc() {
+        ArrayList<Product> productList = writeAndReader2.reader();
+        System.out.println(productList.size());
+        System.out.println("Nhập tên danh mục muốn xóa:");
+        String name = sc.nextLine();
+        int index =-1;
+        boolean check =true;
+        for (int i = 0; i < productList.size(); i++) {
+            if (productList.get(i).getNameCaterory().equals(name)) {
+                index=i;
+                check=false;
+            }
+        }
+        if (check==true) {
+            System.out.println("Không có tên sản phẩm");
+        }
+        System.out.println("Nhập y để xóa");
+        System.out.println("Nhập n để thoát");
+        String a = sc.nextLine();
+        if (a.equals("y")) {
+            System.out.println(index);
+            productList.remove(index);
+            writeAndReader2.write(productList);
+            System.out.println("xóa thành công");
+        }
+        else {
+            if (a.equals("n")) {
+                menuSanPham();
+            }
+        }
+    }
+
 
 
     public void FindSpQuaDM() {
@@ -218,7 +244,7 @@ public class Manager {
         System.out.println("1.Hiển thị thông tin sản phẩm:");
         System.out.println("2.Tìm tên sản phẩm:");
         System.out.println("3.Sắp xếp sản phẩm theo giá");
-        System.out.println("4.Sửa thông tin sản phẩm");
+        System.out.println("4.Sửa sản phẩm:");
         System.out.println("5.Xóa sản phẩm:");
         System.out.println("6.Back");
         int choice2 = Integer.parseInt(sc.nextLine());
@@ -232,9 +258,8 @@ public class Manager {
             case 3:
                 Sort();
                 break;
-
             case 4:
-                editSanPham();
+                Edit();
                 break;
             case 5:
                 deleteSanPham();
@@ -248,71 +273,60 @@ public class Manager {
     }
 
     public void showSanPham() {
+        productList=writeAndReader2.reader();
         for (Product p : productList) {
             System.out.println(p.showSp());
         }
     }
 
-    public int Check() {
-        System.out.println("Nhập id muốn sửa:");
-       String id = sc.nextLine();
-        for (int i = 0; i < productList.size(); i++) {
-            if (productList.get(i).getIdProduct().equals(id)) {
-                return i;
-
-            }
-
-        }
-        return -1;
-    }
-
-    public void editSanPham() {
-        productList.set(Check(), nhapDuLieuSanPham());
-        writeAndReader2.write(productList);
-    }
-
 
     public void deleteSanPham() {
+        ArrayList<Product> productList = writeAndReader2.reader();
+        System.out.println(productList.size());
         System.out.println("Nhập tên sản phẩm muốn xóa:");
         String name = sc.nextLine();
+        int index =-1;
+        boolean check =true;
         for (int i = 0; i < productList.size(); i++) {
             if (productList.get(i).getNameProduct().equals(name)) {
-                System.out.println("Nhập y để xóa");
-                System.out.println("Nhập n để thoát");
-                String a = sc.nextLine();
-                if (a.equals("y")) {
-                    productList.remove(i);
-                    System.out.println("xóa thành công");
-                    break;
-                }
-                else {
-                    if (a.equals("n")) {
-                        menuSanPham();
-                        break;
-                    }
-                }
+                index=i;
+                check=false;
             }
-            else {
-                    System.out.println("không có tên sản phẩm ");
-                    break;
-                }
         }
-
-        writeAndReader2.write(productList);
+        if (check==true) {
+            System.out.println("Không có tên sản phẩm");
+        }
+        System.out.println("Nhập y để xóa");
+        System.out.println("Nhập n để thoát");
+        String a = sc.nextLine();
+        if (a.equals("y")) {
+            System.out.println(index);
+            productList.remove(index);
+            writeAndReader2.write(productList);
+            System.out.println("xóa thành công");
+        }
+        else {
+            if (a.equals("n")) {
+                menuSanPham();
+            }
+        }
     }
 
 
     public void FindProduct() {
         System.out.println("Nhập tên cần tìm kiếm");
         String name = sc.nextLine();
-        Product product = null;
+
+        boolean check = false;
         for (int i = 0; i < productList.size(); i++) {
             if (productList.get(i).getNameProduct().equals(name)) {
-                System.out.println(product = productList.get(i));
-            } else{
-                System.out.println("tên sp không tồn tại");
+                check = true;
+                System.out.println( productList.get(i));
             }
 
+        }
+        if (check ==false){
+            System.out.println("sản phẩm k tồn tại");
         }
 
     }
@@ -324,9 +338,11 @@ public class Manager {
         switch (choice1) {
             case 1:
                 productList.sort(new SortTangDan());
+                showSanPham();
                 break;
             case 2:
                 productList.sort(new SortGiamDan());
+                showSanPham();
                 break;
         }
     }
@@ -432,39 +448,42 @@ public class Manager {
 
     }
     public void showListAccUser(){
+        accountUsers=writeAndReaderAdmin.reader();
         for (AccountUser acc : accountUsers) {
             System.out.println(acc);
 
         }
     }
     public void deletedAccUser(){
-        System.out.println("Nhập tên tài khoản muốn xóa");
+        System.out.println("Nhập tên tk muốn xóa:");
         String name = sc.nextLine();
-        for (int i = 1; i < accountUsers.size(); i++) {
-            if (accountUsers.get(i).getUserName().equals(name)){
-                System.out.println("Nhấn y để xóa");
-                System.out.println("Nhân n để thoát");
-                String a = sc.nextLine();
-                if (a.equals("y")) {
-                    accountUsers.remove(i);
-                    System.out.println("đã xóa thành công");
-                    break;
-                }
-                else {
-                    if (a.equals("n")) {
-                        menuAdmin();
-                        break;
-                    }
-                }
-            }
-            else {
-                System.out.println("tên tài khoản k tồn tại");
-                break;
-
+        int index =-1;
+        boolean check =true;
+        for (int i = 0; i < accountUsers.size(); i++) {
+            if (accountUsers.get(i).getUserName().equals(name)) {
+                index=i;
+                check=false;
             }
         }
-    writeAndReaderAdmin.write(accountUsers);
+        if (check==true) {
+            System.out.println("Không có tên sản phẩm");
+        }
+        System.out.println("Nhập y để xóa");
+        System.out.println("Nhập n để thoát");
+        String a = sc.nextLine();
+        if (a.equals("y")) {
+            System.out.println(index);
+            accountUsers.remove(index);
+            writeAndReaderAdmin.write(accountUsers);
+            System.out.println("xóa thành công");
+        }
+        else {
+            if (a.equals("n")) {
+                menuSanPham();
+            }
+        }
     }
+
 }
 
 
